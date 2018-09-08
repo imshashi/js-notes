@@ -76,3 +76,45 @@
   a; // 'Hello World!'
   window.a; // 'Hello World!'
   ```
+
+## The Execution Context: Creation & 'Hoisting'
+
+  ```js
+  var a = 'Hello World!';
+
+  function b() {
+    console.log('Called b!');
+  }
+
+  b(); // Called b!
+  console.log(a); // Hello World!
+  ```
+
+  Output of above code is obvious and as per expectation. But notice following:
+
+  ```js
+  b(); // Called b!
+  console.log(a); // undefined!
+
+  var a = 'Hello World!';
+
+  function b() {
+    console.log('Called b!');
+  }
+
+  ```
+  Execution context has two phases in JS engine.
+    Creation: Set up the variables and functions in memory
+    Code Execution: Runs your code line by line.
+
+  ### Hoisting: Variables setup (and set equal to  'undefined') and Functions setup
+
+## Single Threaded
+  ### One command at a time
+  Under the hood of the browser, may be not because js is not the only thing which is happening in the browser.
+
+## Synchronous
+  ### One at a time
+  And in order...
+
+  In JS, only one thing is happenning at a time
