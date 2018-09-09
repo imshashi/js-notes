@@ -186,3 +186,50 @@
   ```
 
   Now, in this code, output would be 1. function 'b' doesn't have myVar defined in its scope, so it'll look into reference to its outer environment which is function a. Now, function 'a' also hasn't defined myVar in it's scope, so function 'b' will move to next reference to outer environment which is global environment. Global environment has defined myVar in it's scope, hence function 'b' used that value and output is '1'. This is how scope chain can be described.
+
+## Asynchronous
+  ### More than one at a time
+
+  JS Engine: JS Engine doesn't exist by itself inside, for example in browser. There are other elements, there are other engines and running pieces of code that are happening outside the JS Engine, that runs JS when you load it into the browser. So, the things like Rendering Engine, that actually renders or paints all the visible element on browser's page. There's HTTP Request, which handles HTTP request and responses.
+
+  JS Engine has hooks to these elements where it can talk to these elements.
+
+  JS Engine has Execution Stack, which contains execution context being created, when execution context is run and completed, it leaves the Execution Stack.
+  There's another list which sits inside JS Engine, that's called Event Queue. And this event queue is full of Events, like click, mouse hover, http request. When Execution Stack is empty then only JS Engine looks into Event Queue and start running functions for events registered into event queue. When Execution Stack is empty then JS Engine looks into Event Queue periodically and waits for something to be there. And if it finds something in event queue, then it looks to see if a particular function should be run when that event is triggered.
+  Like if there's 'Click' in event queue, js engine looks for any function which handles that click event. If JS engine finds any such function, then it runs that function whenever that 'click' event is triggered.
+  But again, event queue won't be processed until Execution Stack is empty.
+
+  ```js
+  // long running function
+  function waitThreeSeconds() {
+    var ms = 3000 + new Date().getTime();
+    while(new Date() < ms) {}
+    console.log('finished function');
+  }
+
+  function clickHandler(){
+    console.log('click event!');
+  }
+
+  // listen for click event
+  document.addEventListener('click', clickHandler);
+
+  waitThreeSeconds();
+  console.log('finished execution');
+  ```
+
+  The code written above will first execute waitThreeSeconds function which would take 3 seconds to finish. Then only JS engine will entertain any click event.
+  So, the output of the code written is given below:
+
+  ```js
+  finished function
+  finished execution
+  ```
+
+  This output is without any click event. But when click event is triggered before page loads, then output would be:
+
+  ```js
+  finished function
+  finished execution
+  click event!
+  ```
