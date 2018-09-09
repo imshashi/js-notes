@@ -117,4 +117,72 @@
   ### One at a time
   And in order...
 
-  In JS, only one thing is happenning at a time
+  In JS, only one thing is happenning at a time.
+
+## Function Invocation AND The Execution Stack
+  ### Invocation: Running a function. In JS by using parenthesis (). like b();
+
+## Variable Environment
+  ### Where the variables live
+  And how they relate to each other in memory. Every execution context has its own variable environment.
+
+## Scope
+  ### Where a variable is available in your code.
+
+  Scope is the reference to outer environment that any running function has.
+
+
+## The Scope Chain
+
+  Consider the following code.:
+
+  ```js
+  function b() {
+    console.log(myVar);
+  }
+  function a() {
+    var myVar = 2;
+    b();
+  }
+
+  var myVar = 1;
+  a();
+  ```
+
+  The output of code written above is '1'.
+
+  Where function sits lexically, determines its reference to outer environment. In given code, function 'b' is written/sits lexically in global scope, so it's reference to outer environment is global environment and thus has access to myVar in global environment with value 1.
+
+  Now consider following code:
+
+  ```js
+  function a() {
+    function b() {
+      console.log(myVar);
+    }
+    var myVar = 2;
+    b();
+  }
+
+  var myVar = 1;
+  a();
+  ```
+
+  Now, in this updated code, function 'b' sits lexically in function a's execution context. So, it's reference to outer environment is function 'a' and hence has access to myVar with value 2 defined in function 'a'.
+  function a's reference to outer environment is global environment.
+
+  Now consider one more example:
+
+  ```js
+  function a() {
+    function b() {
+      console.log(myVar);
+    }
+    b();
+  }
+
+  var myVar = 1;
+  a();
+  ```
+
+  Now, in this code, output would be 1. function 'b' doesn't have myVar defined in its scope, so it'll look into reference to its outer environment which is function a. Now, function 'a' also hasn't defined myVar in it's scope, so function 'b' will move to next reference to outer environment which is global environment. Global environment has defined myVar in it's scope, hence function 'b' used that value and output is '1'. This is how scope chain can be described.
