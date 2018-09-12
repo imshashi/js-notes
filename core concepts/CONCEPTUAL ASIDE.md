@@ -233,3 +233,42 @@
   finished execution
   click event!
   ```
+
+## Dynamic Typing
+  You don't tell the engine what type of data a variable holds, it figures it out while your code is running.
+  Variables can hold different types of values because it's all figured out during execution.
+
+## Primitive Types
+  ### A type of data that represents a single value.
+  That is, not an object
+
+  Following are primitive types in JS:
+
+    1. Undefined: `undefined` represents lack of existence. You should not set a variable to have `undefined` as value. JS engine sets variable to initially have `undefined` as default value.
+    2. Null: `null` represents lack of existence. You can set a variable to have `null` as value.
+    3. Boolean: `true` or `false`.
+    4. Number: Floating point number (there's always some decimals). Unlike other programming languages, there's only one 'number' type... and it can make math weird.
+    5. String: A sequence of characters. Both '' and "" can be used to represent string.
+    6. Symbol: Used in ES6.
+
+## Operator Precedence & Associativity
+
+  ### Operator Precedence:
+  Which operator function gets called first. Functions are called in order of precedence(Higher precedence wins)
+
+  ### Operator Associativity
+  What order operator functions get called in - left to right or right to left. When functions have the same precedence.
+
+## Coercion
+  ### Converting a value from one type to another.
+  This happens quite often in JS because it's dynamically typed.
+  For an example:
+
+  ```js
+  var a = 1 + '2'
+  console.log(a); // '12'
+  ```
+
+  Here JS is converting 1(number) into a string and then concatenating both '1' and '2', which would be '12'.
+
+  For more detail, visit https://medium.freecodecamp.org/js-type-coercion-explained-27ba3d9a2839
